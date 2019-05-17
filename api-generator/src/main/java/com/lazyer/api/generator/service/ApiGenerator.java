@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * Created on 2019-05-15.
  */
 @Slf4j
-public class Support {
+public class ApiGenerator {
 
     @Test
     public void test() {
@@ -49,8 +49,8 @@ public class Support {
         getRequest.addCredentials("admin", "admin");
         String result = getRequest.send();
         ApiInfo apiInfo = DataLoader.loadData(result);
-        Support.genInfo(apiInfo, file);
-        Support.genPaths(apiInfo, file);
+        ApiGenerator.genInfo(apiInfo, file);
+        ApiGenerator.genPaths(apiInfo, file);
         log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return apiInfo;
     }
@@ -67,8 +67,8 @@ public class Support {
         getRequest.addCredentials(userName, password);
         String result = getRequest.send();
         ApiInfo apiInfo = DataLoader.loadData(result);
-        Support.genInfo(apiInfo, file);
-        Support.genPaths(apiInfo, file);
+        ApiGenerator.genInfo(apiInfo, file);
+        ApiGenerator.genPaths(apiInfo, file);
         log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return apiInfo;
     }
@@ -92,8 +92,8 @@ public class Support {
             GetRequest getRequest = new GetRequest(s);
             String result = getRequest.send();
             ApiInfo apiInfo = DataLoader.loadData(result);
-            Support.genInfo(apiInfo, file);
-            Support.genPaths(apiInfo, file);
+            ApiGenerator.genInfo(apiInfo, file);
+            ApiGenerator.genPaths(apiInfo, file);
         }
         log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return apiInfos;
@@ -119,8 +119,8 @@ public class Support {
             getRequest.addCredentials(userName, password);
             String result = getRequest.send();
             ApiInfo apiInfo = DataLoader.loadData(result);
-            Support.genInfo(apiInfo, file);
-            Support.genPaths(apiInfo, file);
+            ApiGenerator.genInfo(apiInfo, file);
+            ApiGenerator.genPaths(apiInfo, file);
         }
         log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
         return apiInfos;
