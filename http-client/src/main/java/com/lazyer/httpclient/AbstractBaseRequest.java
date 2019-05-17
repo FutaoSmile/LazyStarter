@@ -1,8 +1,10 @@
 package com.lazyer.httpclient;
 
 import com.alibaba.fastjson.JSON;
-import com.lazyer.foundation.foundation.exception.*;
-import com.lazyer.foundation.model.*;
+import com.lazyer.foundation.foundation.exception.LogicException;
+import com.lazyer.foundation.model.Constant;
+import com.lazyer.foundation.model.ErrorMessage;
+import com.lazyer.httpclient.enums.UserAgentEnum;
 import org.apache.http.*;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -368,5 +370,25 @@ public abstract class AbstractBaseRequest {
             sb.append("domain=").append(cookie.getDomain()).append(";");
         }
         headers.add(new BasicHeader("Cookie", sb.toString()));
+    }
+
+    /**
+     * addUserAgent
+     */
+    public void addUserAgent(UserAgentEnum userAgent) {
+        String defaultUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36";
+        switch (userAgent) {
+            case CHROME:
+                defaultUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36";
+                break;
+            case FIREFOX:
+                defaultUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0";
+                break;
+            case SAFARI:
+                defaultUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Safari/605.1.15";
+                break;
+            default:
+        }
+        this.addHeader("User-Agent", defaultUserAgent);
     }
 }
