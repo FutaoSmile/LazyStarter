@@ -3,13 +3,12 @@ package com.lazyer.api.generator.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.lazyer.foundation.utils.DateTools;
 import com.lazyer.api.generator.model.ApiController;
 import com.lazyer.api.generator.model.ApiInfo;
+import com.lazyer.foundation.utils.DateTools;
 import com.lazyer.httpclient.GetRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,106 +25,103 @@ import java.util.regex.Pattern;
 @Slf4j
 public class ApiGenerator {
 
-    @Test
-    public void test() {
-        System.out.println(gen("111.md", "http://localhost:8887/v2/api-docs"));
-        System.out.println(gen("222.md", new String[]{"http://localhost:8887/v2/api-docs", "http://localhost:8887/v2/api-docs"}));
-    }
-
     /**
-     * 生成
-     *
-     * @param fileName
-     * @param url
+     * 数据源为Swagger
      */
-    public static ApiInfo gen(String fileName, String url) throws IllegalArgumentException {
-        long start = System.currentTimeMillis();
-        if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
-            log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
-            throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
-        }
-        File file = new File(fileName);
-        GetRequest getRequest = new GetRequest(url);
-        getRequest.addCredentials("admin", "admin");
-        String result = getRequest.send();
-        ApiInfo apiInfo = DataLoader.loadData(result);
-        ApiGenerator.genInfo(apiInfo, file);
-        ApiGenerator.genPaths(apiInfo, file);
-        log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
-        return apiInfo;
-    }
-
-
-    public static ApiInfo gen(String fileName, String url, String userName, String password) throws IllegalArgumentException {
-        long start = System.currentTimeMillis();
-        if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
-            log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
-            throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
-        }
-        File file = new File(fileName);
-        GetRequest getRequest = new GetRequest(url);
-        getRequest.addCredentials(userName, password);
-        String result = getRequest.send();
-        ApiInfo apiInfo = DataLoader.loadData(result);
-        ApiGenerator.genInfo(apiInfo, file);
-        ApiGenerator.genPaths(apiInfo, file);
-        log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
-        return apiInfo;
-    }
-
-    /**
-     * 多数据源
-     *
-     * @param fileName
-     * @param url
-     * @return
-     */
-    public static ArrayList<ApiInfo> gen(String fileName, String[] url) throws IllegalArgumentException {
-        long start = System.currentTimeMillis();
-        if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
-            log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
-            throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
-        }
-        ArrayList<ApiInfo> apiInfos = new ArrayList<>(url.length);
-        File file = new File(fileName);
-        for (String s : url) {
-            GetRequest getRequest = new GetRequest(s);
+    public static class SwaggerGenerator {
+        /**
+         * 生成
+         *
+         * @param fileName
+         * @param url
+         */
+        public static ApiInfo gen(String fileName, String url) throws IllegalArgumentException {
+            long start = System.currentTimeMillis();
+            if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
+                log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
+                throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
+            }
+            File file = new File(fileName);
+            GetRequest getRequest = new GetRequest(url);
             String result = getRequest.send();
-            ApiInfo apiInfo = DataLoader.loadData(result);
+            ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
             ApiGenerator.genInfo(apiInfo, file);
             ApiGenerator.genPaths(apiInfo, file);
+            log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
+            return apiInfo;
         }
-        log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
-        return apiInfos;
-    }
 
-    /**
-     * 多数据源
-     *
-     * @param fileName
-     * @param url
-     * @return
-     */
-    public static ArrayList<ApiInfo> gen(String fileName, String userName, String password, String[] url) throws IllegalArgumentException {
-        long start = System.currentTimeMillis();
-        if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
-            log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
-            throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
-        }
-        ArrayList<ApiInfo> apiInfos = new ArrayList<>(url.length);
-        File file = new File(fileName);
-        for (String s : url) {
-            GetRequest getRequest = new GetRequest(s);
+
+        public static ApiInfo gen(String fileName, String url, String userName, String password) throws IllegalArgumentException {
+            long start = System.currentTimeMillis();
+            if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
+                log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
+                throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
+            }
+            File file = new File(fileName);
+            GetRequest getRequest = new GetRequest(url);
             getRequest.addCredentials(userName, password);
             String result = getRequest.send();
-            ApiInfo apiInfo = DataLoader.loadData(result);
+            ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
             ApiGenerator.genInfo(apiInfo, file);
             ApiGenerator.genPaths(apiInfo, file);
+            log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
+            return apiInfo;
         }
-        log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
-        return apiInfos;
-    }
 
+        /**
+         * 多数据源
+         *
+         * @param fileName
+         * @param url
+         * @return
+         */
+        public static ArrayList<ApiInfo> gen(String fileName, String[] url) throws IllegalArgumentException {
+            long start = System.currentTimeMillis();
+            if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
+                log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
+                throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
+            }
+            ArrayList<ApiInfo> apiInfos = new ArrayList<>(url.length);
+            File file = new File(fileName);
+            for (String s : url) {
+                GetRequest getRequest = new GetRequest(s);
+                String result = getRequest.send();
+                ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
+                ApiGenerator.genInfo(apiInfo, file);
+                ApiGenerator.genPaths(apiInfo, file);
+            }
+            log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
+            return apiInfos;
+        }
+
+        /**
+         * 多数据源
+         *
+         * @param fileName
+         * @param url
+         * @return
+         */
+        public static ArrayList<ApiInfo> gen(String fileName, String userName, String password, String[] url) throws IllegalArgumentException {
+            long start = System.currentTimeMillis();
+            if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
+                log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
+                throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
+            }
+            ArrayList<ApiInfo> apiInfos = new ArrayList<>(url.length);
+            File file = new File(fileName);
+            for (String s : url) {
+                GetRequest getRequest = new GetRequest(s);
+                getRequest.addCredentials(userName, password);
+                String result = getRequest.send();
+                ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
+                ApiGenerator.genInfo(apiInfo, file);
+                ApiGenerator.genPaths(apiInfo, file);
+            }
+            log.info(">>> 生成成功，耗时[{}]毫秒", System.currentTimeMillis() - start);
+            return apiInfos;
+        }
+    }
 
     /**
      * 加载path信息

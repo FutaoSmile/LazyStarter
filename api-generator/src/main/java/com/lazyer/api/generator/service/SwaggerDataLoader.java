@@ -3,17 +3,14 @@ package com.lazyer.api.generator.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.lazyer.foundation.foundation.FastJson2HttpMessageConverter;
 import com.lazyer.api.generator.model.ApiController;
 import com.lazyer.api.generator.model.ApiInfo;
 import com.lazyer.api.generator.model.ApiMethod;
 import com.lazyer.api.generator.model.ApiParameter;
+import com.lazyer.foundation.foundation.FastJson2HttpMessageConverter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +22,7 @@ import java.util.Map;
  * Created on 2019-05-15.
  */
 @Slf4j
-public class DataLoader {
+public class SwaggerDataLoader {
 
     private static HashMap<String, ArrayList<ApiMethod>> arrayListHashMap = new HashMap<>();
 
@@ -45,7 +42,6 @@ public class DataLoader {
         loadDefinition(jsonObject);
         loadPath(jsonObject);
         ApiInfo apiInfo = loadInfo(jsonObject);
-        FileUtils.writeStringToFile(new File("./666.json"), JSON.toJSONString(apiInfo, FastJson2HttpMessageConverter.SERIALIZER_FEATURES), StandardCharsets.UTF_8);
         return apiInfo;
 
     }
