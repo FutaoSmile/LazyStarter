@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  * @author futao
  * Created on 2019-01-15.
  */
+
 @Service
 public class SpringTools implements ApplicationContextAware {
 

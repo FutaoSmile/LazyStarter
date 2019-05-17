@@ -1,6 +1,6 @@
 package com.lazyer.foundation.annotation;
 
-import com.lazyer.foundation.annotation.impl.FrameworkConfiguration;
+import com.lazyer.foundation.annotation.impl.LazyerConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -15,6 +15,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE})
 //TODO 直接@ComponentScan无效，必须通过@Import一个类的形式才行
-@Import({FrameworkConfiguration.class})
-public @interface EnableCommonFrameWorkFoundation {
+@Import({LazyerConfiguration.class})
+public @interface EnableLazyer {
 }

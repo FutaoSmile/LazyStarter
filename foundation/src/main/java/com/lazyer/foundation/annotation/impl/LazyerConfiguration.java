@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author futao
  * Created on 2019-05-05.
  */
-@ComponentScan("com.lazyer.foundation")
-public class FrameworkConfiguration {
+@ComponentScan("com.lazyer")
+public class LazyerConfiguration {
 
 }

@@ -21,7 +21,7 @@ import java.util.Set;
  * Created on 2018/9/23-20:00.
  */
 @Configuration
-public class HibernateValidatorConfiguration {
+public class HibernateValidatorConfig {
 
     /**
      * JSR和Hibernate validator的校验只能对Object的属性进行校验

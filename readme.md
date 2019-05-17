@@ -55,3 +55,5 @@
 > 根据swagger-api生成markdown文档。markdown可再导出为pdf，html等
 
 ### # [http-client](https://github.com/FutaoSmile/CommonFramework/tree/master/http-client)
+
+### # [mybatis](https://github.com/FutaoSmile/CommonFramework/tree/master/mybatis)

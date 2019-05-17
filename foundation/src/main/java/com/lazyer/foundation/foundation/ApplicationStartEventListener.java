@@ -1,5 +1,6 @@
 package com.lazyer.foundation.foundation;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationListener;
@@ -11,8 +12,9 @@ import org.springframework.stereotype.Component;
  * @author futao
  * Created on 2019-05-06.
  */
+@Slf4j
 @Component
-@ConfigurationProperties(prefix = "framework")
+@ConfigurationProperties(prefix = "lazyer.foundation")
 public class ApplicationStartEventListener implements ApplicationListener<ApplicationStartedEvent> {
 
     private boolean showBanner = true;
@@ -46,7 +48,7 @@ public class ApplicationStartEventListener implements ApplicationListener<Applic
                     "//              CommonFramework组件加载成功\n" +
                     "//");
         } else {
-            System.out.println("CommonFramework组件加载成功\n");
+            log.info("lazyer-foundation组件加载成功");
         }
 
     }

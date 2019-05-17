@@ -4,6 +4,7 @@ import com.lazyer.foundation.model.RestResult;
 import com.lazyer.foundation.utils.I18nTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.TransactionTimedOutException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -92,11 +93,11 @@ public class ExceptionWrapper {
      * @param e 异常信息
      * @return
      */
-//    @ExceptionHandler(TransactionTimedOutException.class)
-//    public Object transactionTimedOutException(TransactionTimedOutException e) {
-//        printExceptionLog(e);
-//        return new RestResult<>(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), I18nTools.getMessage("system.transaction.timeout"));
-//    }
+    @ExceptionHandler(TransactionTimedOutException.class)
+    public Object transactionTimedOutException(TransactionTimedOutException e) {
+        printExceptionLog(e);
+        return new RestResult<>(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), I18nTools.getMessage("system.transaction.timeout"));
+    }
 
     /**
      * 处理400,404,405,500等问题
