@@ -35,14 +35,14 @@ public class ApiGenerator {
          * @param fileName
          * @param url
          */
-        public static ApiInfo gen(String fileName, String url) throws IllegalArgumentException {
+        public static ApiInfo gen(String fileName, String swaggerApiUrl) throws IllegalArgumentException {
             long start = System.currentTimeMillis();
             if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
                 log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
                 throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
             }
             File file = new File(fileName);
-            GetRequest getRequest = new GetRequest(url);
+            GetRequest getRequest = new GetRequest(swaggerApiUrl);
             String result = getRequest.send();
             ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
             ApiGenerator.genInfo(apiInfo, file);
@@ -52,14 +52,14 @@ public class ApiGenerator {
         }
 
 
-        public static ApiInfo gen(String fileName, String url, String userName, String password) throws IllegalArgumentException {
+        public static ApiInfo gen(String fileName, String swaggerApiUrl, String userName, String password) throws IllegalArgumentException {
             long start = System.currentTimeMillis();
             if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
                 log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
                 throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
             }
             File file = new File(fileName);
-            GetRequest getRequest = new GetRequest(url);
+            GetRequest getRequest = new GetRequest(swaggerApiUrl);
             getRequest.addCredentials(userName, password);
             String result = getRequest.send();
             ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
@@ -73,18 +73,18 @@ public class ApiGenerator {
          * 多数据源
          *
          * @param fileName
-         * @param url
+         * @param swaggerApiUrl
          * @return
          */
-        public static ArrayList<ApiInfo> gen(String fileName, String[] url) throws IllegalArgumentException {
+        public static ArrayList<ApiInfo> gen(String fileName, String[] swaggerApiUrl) throws IllegalArgumentException {
             long start = System.currentTimeMillis();
             if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
                 log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
                 throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
             }
-            ArrayList<ApiInfo> apiInfos = new ArrayList<>(url.length);
+            ArrayList<ApiInfo> apiInfos = new ArrayList<>(swaggerApiUrl.length);
             File file = new File(fileName);
-            for (String s : url) {
+            for (String s : swaggerApiUrl) {
                 GetRequest getRequest = new GetRequest(s);
                 String result = getRequest.send();
                 ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
@@ -99,18 +99,18 @@ public class ApiGenerator {
          * 多数据源
          *
          * @param fileName
-         * @param url
+         * @param swaggerApiUrl
          * @return
          */
-        public static ArrayList<ApiInfo> gen(String fileName, String userName, String password, String[] url) throws IllegalArgumentException {
+        public static ArrayList<ApiInfo> gen(String fileName, String userName, String password, String[] swaggerApiUrl) throws IllegalArgumentException {
             long start = System.currentTimeMillis();
             if (fileName == null || !Pattern.compile("\\S+(.md)$").matcher(fileName).matches()) {
                 log.error("文件名必须不为空且以.md结尾，请重新确认您的输入");
                 throw new IllegalArgumentException("文件名必须不为空且以.md结尾，请重新确认您的输入");
             }
-            ArrayList<ApiInfo> apiInfos = new ArrayList<>(url.length);
+            ArrayList<ApiInfo> apiInfos = new ArrayList<>(swaggerApiUrl.length);
             File file = new File(fileName);
-            for (String s : url) {
+            for (String s : swaggerApiUrl) {
                 GetRequest getRequest = new GetRequest(s);
                 getRequest.addCredentials(userName, password);
                 String result = getRequest.send();

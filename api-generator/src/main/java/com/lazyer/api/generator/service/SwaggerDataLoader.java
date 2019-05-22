@@ -3,6 +3,7 @@ package com.lazyer.api.generator.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
 import com.lazyer.api.generator.model.ApiController;
 import com.lazyer.api.generator.model.ApiInfo;
 import com.lazyer.api.generator.model.ApiMethod;
@@ -36,9 +37,9 @@ public class SwaggerDataLoader {
      */
     @SneakyThrows
     public static ApiInfo loadData(String result) {
-        arrayListHashMap = new HashMap<>();
-        definition = new HashMap<>();
-        JSONObject jsonObject = JSON.parseObject(result);
+        JSONObject jsonObject = JSON.parseObject(result, Feature.DisableCircularReferenceDetect);
+//        arrayListHashMap = new HashMap<>();
+//        definition = new HashMap<>();
         loadDefinition(jsonObject);
         loadPath(jsonObject);
         ApiInfo apiInfo = loadInfo(jsonObject);
@@ -143,9 +144,15 @@ public class SwaggerDataLoader {
                 String type = jsonArray.getJSONObject(i).getString("type");
                 JSONObject schema = jsonArray.getJSONObject(i).getJSONObject("schema");
                 if (schema != null) {
-//                    String $ref = schema.getString("$ref");
-//                    String modelName = $ref.substring($ref.lastIndexOf("/"));
-//                    type = modelName + ":" + definition.get(modelName);
+                    String ref = schema.getString("$ref");
+                    if (ref == null) {
+                        //非引用类型
+                        type = schema.getString("type");
+                    } else {
+                        //引用类型
+                        String modelName = ref.substring(ref.lastIndexOf("/") + 1);
+                        type = modelName + ":" + definition.get(modelName);
+                    }
                 }
                 apiParameters[i] = new ApiParameter(name, type, required, description);
             }
@@ -165,10 +172,13 @@ public class SwaggerDataLoader {
         Map<String, String> map = new HashMap<>(jsonObject.size());
         definitions.forEach((k, v) -> {
             JSONObject properties = ((JSONObject) v).getJSONObject("properties");
+//            if (properties != null) {
+//                JSONObject current = new JSONObject(properties.size());
+//                map.put(k, JSON.toJSONString(current, FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
+//                properties.forEach((pro, desc) -> current.put(pro, ((JSONObject) desc).getString("type")));
+//            }
             if (properties != null) {
-                JSONObject current = new JSONObject(properties.size());
-                map.put(k, JSON.toJSONString(current, FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
-                properties.forEach((pro, desc) -> current.put(pro, ((JSONObject) desc).getString("type")));
+                map.put(k, JSON.toJSONString(properties, FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
             }
         });
         definition = map;

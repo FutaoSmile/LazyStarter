@@ -35,6 +35,7 @@ public class FastJson2HttpMessageConverter extends AbstractHttpMessageConverter<
             , SerializerFeature.WriteNullStringAsEmpty
             , SerializerFeature.WriteNullListAsEmpty
             , SerializerFeature.WriteMapNullValue
+            , SerializerFeature.DisableCircularReferenceDetect
     };
 
     @Override

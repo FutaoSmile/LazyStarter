@@ -35,5 +35,5 @@
     * 支持同时加载多个数据源。
 * Todo
     * 提供不依赖于swagger的生成方案
-    * 使用fastjson解析JsongString时，key为`$ref`的value会一直循环引用,[issue->fastjson](https://github.com/alibaba/fastjson/issues/2429)
+    * ~~使用fastjson解析JsongString时，key为`$ref`的value会一直循环引用~~,[issue->fastjson](https://github.com/alibaba/fastjson/issues/2429)
     * 直接生成html/pdf等

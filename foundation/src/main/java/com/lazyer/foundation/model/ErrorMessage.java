@@ -16,7 +16,7 @@ public final class ErrorMessage {
     public static class ApplicationErrorMessage {
         public static final String SYSTEM_EXCEPTION = "系统繁忙，请稍后再试";
         public static final String INIT_OBJ_FAIL = "实例化%s失败";
-        public static final String EXPORT_EXCEL_FAIL = "导出excel时发生异常";
+        public static final String EXPORT_EXCEL_FAIL = "读取excel时发生异常";
         public static final String CLOSE_OUTPUT_STREAM_FAIL = "关闭输出流时发生异常";
         public static final String INVOKE_METHOD_FAIL = "执行方法时发生异常";
         public static final String ENUM_MUST_IMPL_IENUM = "使用@EnumStatus(EnumClass.class)注解之前，您的枚举类EnumClass必须实现IEnum接口";
@@ -26,6 +26,7 @@ public final class ErrorMessage {
         public static final String BAD_REQUEST = "参数[%s]是必传的~";
         public static final String SERVER_ERROR = "服务暂时不可用。正在紧急修复中~";
         public static final String TRANSACTION_TIME_OUT = "请求已超时，请重试";
+        public static final String UNKNOW_DATA_TYPE = "未知的数据类型";
 
     }
 

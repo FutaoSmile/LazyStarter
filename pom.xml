@@ -20,6 +20,7 @@
         <lazyer.project.version>1.1.2</lazyer.project.version>
         <lazyer.springBoot.version>2.1.6.RELEASE</lazyer.springBoot.version>
         <lazyer.spring.version>5.1.6.RELEASE</lazyer.spring.version>
+        <lazyer.poi.version>3.17</lazyer.poi.version>
     </properties>
 
 
@@ -35,6 +36,7 @@
         <module>api-generator</module>
         <module>http-client</module>
         <module>mybatis</module>
+        <module>tools</module>
     </modules>
 
 
@@ -131,8 +133,25 @@
                 <artifactId>spring-tx</artifactId>
                 <version>${lazyer.spring.version}</version>
             </dependency>
-        </dependencies>
 
+            <!--excel-->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${lazyer.poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${lazyer.poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml-schemas</artifactId>
+                <version>${lazyer.poi.version}</version>
+            </dependency>
+
+        </dependencies>
     </dependencyManagement>
 
     <build>
