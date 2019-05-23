@@ -1,6 +1,5 @@
-package com.lazyer.foundation.interceptors;
+package com.lazyer.mybatis.cache;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -15,11 +14,12 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Properties;
-import java.util.concurrent.*;
 import java.util.regex.Matcher;
 
 /**
@@ -33,36 +33,22 @@ import java.util.regex.Matcher;
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
+@Component
 public class MybatisInterceptor implements Interceptor {
 
     /**
      * 慢sql时长
      */
-    private static final long SLOW_SQL_TIME_MILLS = 1000L;
+    private static final long SLOW_SQL_TIME_MILLS = MybatisConst.slowSqlMillis;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MybatisInterceptor.class);
     private static final String UPDATE = "update";
 
-    /**
-     * 线程池
-     */
-    private static final ThreadPoolExecutor THREAD_POOL_EXECUTOR;
+    private static java.util.concurrent.Executor executor;
 
-    /**
-     * 初始化线程池
-     */
-    static {
-        ThreadFactoryBuilder threadFactoryBuilder = new ThreadFactoryBuilder();
-        threadFactoryBuilder.setNameFormat("wlb-tpe-%s");
-        ThreadFactory threadFactory = threadFactoryBuilder.build();
-        THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(
-                2,
-                8,
-                60,
-                TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(100),
-                threadFactory,
-                (r, e) -> LOGGER.error("线程池ThreadPoolExecutor发生异常，超出最大可分配线程"));
+    @Autowired
+    public static void setExecutor(java.util.concurrent.Executor executor) {
+        MybatisInterceptor.executor = executor;
     }
 
     @Override
@@ -77,7 +63,7 @@ public class MybatisInterceptor implements Interceptor {
         long endTime = System.currentTimeMillis();
         //sql执行时间
         long sqlTime = endTime - startTime;
-        if (true) {
+        if (MybatisConst.showSql) {
             try {
                 Object[] args = invocation.getArgs();
                 MappedStatement ms = (MappedStatement) args[0];
@@ -91,8 +77,7 @@ public class MybatisInterceptor implements Interceptor {
                 logSql(id, configuration, boundSql, sqlTime + "");
                 //开启新线程记录慢sql
                 if (sqlTime > SLOW_SQL_TIME_MILLS) {
-                    SlowSql slowSql = new SlowSql(sqlTime);
-                    THREAD_POOL_EXECUTOR.execute(slowSql);
+                    executor.execute(() -> LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime));
                 }
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
@@ -158,35 +143,9 @@ public class MybatisInterceptor implements Interceptor {
                         //??
                         sql = sql.replaceFirst("\\?", "缺失");
                     }
-
                 }
             }
-
         }
-
         LOGGER.info("\n>>>【sql id: 】{}\n>>>【sql 语句: 】{}\n>>>【sql 耗时: 】{} ms", id, sql, time);
-    }
-
-    /**
-     * 记录慢sql
-     */
-    class SlowSql implements Runnable {
-        @Override
-        public void run() {
-            log();
-        }
-
-        private long sqlTime;
-
-        SlowSql(long sqlTime) {
-            this.sqlTime = sqlTime;
-        }
-
-        /**
-         * 记录慢sql日志
-         */
-        private void log() {
-            LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime);
-        }
     }
 }
