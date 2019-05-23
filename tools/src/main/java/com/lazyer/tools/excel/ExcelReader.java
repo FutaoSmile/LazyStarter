@@ -27,7 +27,7 @@ public class ExcelReader {
     /**
      * 读取excel
      *
-     * @param fileName         文件名
+     * @param fileName         文件名不需要后缀
      * @param skipHeader       忽略开头几行
      * @param headerDefinition 头定义
      * @return JSON数组

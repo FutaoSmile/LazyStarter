@@ -39,6 +39,7 @@ public class ExcelWriter {
      * @param data        数据
      */
     public static void export2File(String filePath, String sheetName, String[] columnHeads, List<List<Object>> data) {
+        long startTime = System.currentTimeMillis();
         SXSSFWorkbook workbook = genExcel(sheetName, columnHeads, data);
         try {
             workbook.write(FileUtils.openOutputStream(new File(filePath + ".xlsx")));
@@ -46,7 +47,7 @@ public class ExcelWriter {
             log.error("导出excel失败", e);
             throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.EXPORT_EXCEL_FAIL);
         }
-        log.info("导出成功...");
+        log.info("导出成功...耗时[{}]ms", System.currentTimeMillis() - startTime);
     }
 
 
@@ -60,7 +61,7 @@ public class ExcelWriter {
      * @param response
      */
     public static void export2Response(String fileName, String sheetName, String[] columnHeads, List<List<Object>> data, HttpServletResponse response) {
-
+        long startTime = System.currentTimeMillis();
         //设置响应头
         response.setCharacterEncoding(Constant.UTF8_ENCODE);
         response.setContentType("application/vnd.ms-excel");
@@ -95,6 +96,7 @@ public class ExcelWriter {
                 throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.CLOSE_OUTPUT_STREAM_FAIL);
             }
         }
+        log.info("导出成功...耗时[{}]ms", System.currentTimeMillis() - startTime);
     }
 
     /**

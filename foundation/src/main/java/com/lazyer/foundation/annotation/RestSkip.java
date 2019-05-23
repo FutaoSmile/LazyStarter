@@ -3,13 +3,13 @@ package com.lazyer.foundation.annotation;
 import java.lang.annotation.*;
 
 /**
- * 忽略RestResultAdvice
+ * 不进行Rest封装
  *
  * @author futao
- * Created on 2019-05-06.
+ * Created on 2019-05-22.
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.METHOD})
-public @interface IgnoreRestAdvice {
+@Target(ElementType.METHOD)
+public @interface RestSkip {
 }
