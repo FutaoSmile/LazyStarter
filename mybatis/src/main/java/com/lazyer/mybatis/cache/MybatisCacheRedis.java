@@ -36,11 +36,8 @@ public class MybatisCacheRedis implements Cache {
      * cache instance id
      */
     private final String id;
+
     private RedisTemplate redisTemplate;
-    /**
-     * redis过期时间
-     */
-    private long expireTimeInMinutes = MybatisConst.mybatisRedisCacheExpireTimeInMinutes;
 
     public MybatisCacheRedis(String id) {
         if (id == null) {
@@ -67,7 +64,7 @@ public class MybatisCacheRedis implements Cache {
             String redisKey = RedisKeySet.mybatisSecondCacheMapperKey(id + ":" + key);
             //不要设置过期时间
             redisTemplate.opsForList().rightPush(RedisKeySet.mybatisSecondCacheListKey(id), redisKey);
-            redisTemplate.opsForValue().set(redisKey, value, expireTimeInMinutes, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(redisKey, value, SpringTools.getBean(MybatisConst.class).mybatisRedisCacheExpireTimeInSecond, TimeUnit.SECONDS);
 
             logger.debug("\n<<< 结果插入redis缓存\n【key】{}\n【值】:{}", redisKey, value);
         }

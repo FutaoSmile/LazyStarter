@@ -17,15 +17,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class MybatisConst {
     /**
-     * mybatis二级缓存过期时间(分钟)
+     * mybatis二级缓存过期时间(秒)
      */
-    public static long mybatisRedisCacheExpireTimeInMinutes = 5L;
+    public long mybatisRedisCacheExpireTimeInSecond = 30L;
     /**
      * 是否打印sql
      */
-    public static boolean showSql = true;
+    public boolean showSql = true;
     /**
      * 慢sql时间(毫秒)
      */
-    public static long slowSqlMillis = 1000L;
+    public long slowSqlMillis = 1000L;
 }

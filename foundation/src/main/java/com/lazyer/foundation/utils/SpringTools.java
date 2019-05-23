@@ -3,7 +3,7 @@ package com.lazyer.foundation.utils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
  * Spring容器
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * Created on 2019-01-15.
  */
 
-@Service
+@Component
 public class SpringTools implements ApplicationContextAware {
 
     private static ApplicationContext context = null;

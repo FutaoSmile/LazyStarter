@@ -1,5 +1,6 @@
 package com.lazyer.mybatis.cache;
 
+import com.lazyer.foundation.utils.SpringTools;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -14,8 +15,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -33,23 +32,10 @@ import java.util.regex.Matcher;
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
-@Component
 public class MybatisInterceptor implements Interceptor {
-
-    /**
-     * 慢sql时长
-     */
-    private static final long SLOW_SQL_TIME_MILLS = MybatisConst.slowSqlMillis;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MybatisInterceptor.class);
     private static final String UPDATE = "update";
-
-    private static java.util.concurrent.Executor executor;
-
-    @Autowired
-    public static void setExecutor(java.util.concurrent.Executor executor) {
-        MybatisInterceptor.executor = executor;
-    }
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -63,7 +49,7 @@ public class MybatisInterceptor implements Interceptor {
         long endTime = System.currentTimeMillis();
         //sql执行时间
         long sqlTime = endTime - startTime;
-        if (MybatisConst.showSql) {
+        if (SpringTools.getBean(MybatisConst.class).showSql) {
             try {
                 Object[] args = invocation.getArgs();
                 MappedStatement ms = (MappedStatement) args[0];
@@ -76,8 +62,8 @@ public class MybatisInterceptor implements Interceptor {
                 // 记录日志
                 logSql(id, configuration, boundSql, sqlTime + "");
                 //开启新线程记录慢sql
-                if (sqlTime > SLOW_SQL_TIME_MILLS) {
-                    executor.execute(() -> LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime));
+                if (sqlTime > SpringTools.getBean(MybatisConst.class).slowSqlMillis) {
+                    SpringTools.getBean(java.util.concurrent.Executor.class).execute(() -> LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime));
                 }
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
