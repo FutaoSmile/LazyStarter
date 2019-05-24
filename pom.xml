@@ -37,6 +37,7 @@
         <module>http-client</module>
         <module>mybatis</module>
         <module>tools</module>
+        <module>learning</module>
     </modules>
 
 
