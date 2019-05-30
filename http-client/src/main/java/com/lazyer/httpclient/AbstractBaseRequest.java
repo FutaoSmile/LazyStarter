@@ -263,6 +263,7 @@ public abstract class AbstractBaseRequest {
             throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, new String[]{String.valueOf(response.getStatusLine().getStatusCode())});
         }
         //获取结果
+        // TODO 返回HttpServletResponse
         return result;
     }
 
