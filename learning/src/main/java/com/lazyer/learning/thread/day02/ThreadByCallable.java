@@ -1,4 +1,4 @@
-package com.lazyer.learning.xiaohui.day02;
+package com.lazyer.learning.thread.day02;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;

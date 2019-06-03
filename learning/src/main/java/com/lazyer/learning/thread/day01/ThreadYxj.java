@@ -1,4 +1,4 @@
-package com.lazyer.learning.xiaohui;
+package com.lazyer.learning.thread.day01;
 
 /**
  * 线程优先级

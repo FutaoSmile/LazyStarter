@@ -1,4 +1,4 @@
-package com.lazyer.learning.xiaohui.day02;
+package com.lazyer.learning.thread.day02;
 
 import lombok.extern.slf4j.Slf4j;
 

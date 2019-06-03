@@ -1,4 +1,4 @@
-package com.lazyer.learning.xiaohui;
+package com.lazyer.learning.thread.day01;
 
 /**
  * 实现多线程的第二种方式-实现Runnable接口

@@ -1,4 +1,4 @@
-package com.lazyer.learning.xiaohui.day02;
+package com.lazyer.learning.thread.day02;
 
 /**
  * 线程通信

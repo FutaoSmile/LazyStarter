@@ -23,6 +23,10 @@
             <groupId>com.lazyer.starter</groupId>
             <artifactId>foundation</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
