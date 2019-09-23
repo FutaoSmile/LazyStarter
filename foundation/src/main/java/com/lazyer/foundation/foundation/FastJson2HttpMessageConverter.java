@@ -10,7 +10,6 @@ import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.GenericHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -22,7 +21,7 @@ import java.nio.charset.StandardCharsets;
  * @author futao
  * Created on 2018-12-20.
  */
-@Service
+//@Service
 public class FastJson2HttpMessageConverter extends AbstractHttpMessageConverter<Object> implements GenericHttpMessageConverter<Object> {
     /**
      * fastJson配置
