@@ -40,7 +40,7 @@
         <module>lazy-learning</module>
         <module>lazy-validator</module>
         <module>lazy-rest</module>
-        <module>lazy-const</module>
+        <module>lazy-constant</module>
     </modules>
 
 
