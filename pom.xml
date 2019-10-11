@@ -2,27 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!--需要同步更新lazy.springBoot.version-->
         <version>2.1.3.RELEASE</version>
         <relativePath/>
     </parent>
 
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <lazy.project.version>1.1.2.SNAPSHOT</lazy.project.version>
-        <lazy.springBoot.version>2.1.6.RELEASE</lazy.springBoot.version>
-        <lazy.spring.version>5.1.6.RELEASE</lazy.spring.version>
-        <lazy.poi.version>3.17</lazy.poi.version>
-    </properties>
-
+    <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lazy.starter</groupId>
     <artifactId>lazy-framework</artifactId>
@@ -30,6 +17,19 @@
     <!--注意修改lazy.project.version-->
     <version>${lazy.project.version}</version>
     <description>懒人框架</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <!-- 项目版本-->
+        <lazy.project.version>1.1.4.SNAPSHOT</lazy.project.version>
+        <!-- 跟随parent.version变化-->
+        <lazy.springBoot.version>2.1.3.RELEASE</lazy.springBoot.version>
+        <lazy.spring.version>5.1.6.RELEASE</lazy.spring.version>
+        <lazy.poi.version>3.17</lazy.poi.version>
+        <lazy.mybatis.version>2.0.1</lazy.mybatis.version>
+    </properties>
 
     <modules>
         <module>lazy-foundation</module>
@@ -43,31 +43,44 @@
 
 
     <dependencies>
+        <!--简化代码-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.4</version>
         </dependency>
+
+        <!--注意：如果要使用@ConfigurationProperties的方式来注入，那么必须添加此依赖，
+               否则项目打包之后不会生成spring-configuration-metadata.json，被其他项目依赖的时候，也无法在配置文件中设值-->
+        <!--注解处理器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--logback日志-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.2.3</version>
         </dependency>
+        <!--工具包-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
         </dependency>
+
+        <!--JSON工具-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.56</version>
         </dependency>
+
+        <!--单元测试-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -76,62 +89,51 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--代码生成器模块-->
             <dependency>
                 <groupId>com.lazy.starter</groupId>
                 <artifactId>api-generator</artifactId>
                 <version>${lazy.project.version}</version>
             </dependency>
+
+            <!--基础模块-->
             <dependency>
                 <groupId>com.lazy.starter</groupId>
                 <artifactId>foundation</artifactId>
                 <version>${lazy.project.version}</version>
             </dependency>
+
+            <!--HttpClient模块-->
             <dependency>
                 <groupId>com.lazy.starter</groupId>
                 <artifactId>http-client</artifactId>
                 <version>${lazy.project.version}</version>
             </dependency>
 
+            <!--httpClient-->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>4.5.7</version>
             </dependency>
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>2.3.28</version>
-            </dependency>
+
+            <!--servletApi-->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>4.0.0</version>
             </dependency>
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>3.5.0</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>27.1-jre</version>
             </dependency>
+
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>2.6</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-redis</artifactId>
-                <version>${lazy.springBoot.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-tx</artifactId>
-                <version>${lazy.spring.version}</version>
             </dependency>
 
             <!--excel-->
@@ -151,7 +153,19 @@
                 <version>${lazy.poi.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${lazy.springBoot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${lazy.mybatis.version}</version>
+            </dependency>
+
         </dependencies>
+
     </dependencyManagement>
 
     <build>

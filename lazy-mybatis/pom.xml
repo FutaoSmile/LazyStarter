@@ -21,24 +21,20 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.lazy.starter</groupId>
             <artifactId>foundation</artifactId>
         </dependency>
-
-        <!--注意：如果要使用@ConfigurationProperties的方式来注入，那么必须添加此依赖，
-        否则项目打包之后不会生成spring-configuration-metadata.json，被其他项目依赖的时候，也无法在配置文件中设值-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
 
