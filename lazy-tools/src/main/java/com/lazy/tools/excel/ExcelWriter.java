@@ -1,9 +1,8 @@
 package com.lazy.tools.excel;
 
-import com.lazy.foundation.foundation.exception.ApplicationException;
-import com.lazy.foundation.model.Constant;
-import com.lazy.foundation.model.ErrorMessage;
-import com.lazy.foundation.utils.ServiceTools;
+import com.lazy.constant.Constant;
+import com.lazy.constant.ErrorMessage;
+import com.lazy.rest.exception.ApplicationException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.streaming.SXSSFRow;
@@ -15,10 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -109,9 +105,9 @@ public class ExcelWriter {
      * @param objs
      * @param response
      */
-    public static void exportByGetter2Response(String fileName, String sheetName, String[] columnHeads, Method[] methods, List<?> objs, HttpServletResponse response) {
-        export2Response(fileName, sheetName, columnHeads, exportByGetter(columnHeads, methods, objs), response);
-    }
+//    public static void exportByGetter2Response(String fileName, String sheetName, String[] columnHeads, Method[] methods, List<?> objs, HttpServletResponse response) {
+//        export2Response(fileName, sheetName, columnHeads, exportByGetter(columnHeads, methods, objs), response);
+//    }
 
     /**
      * 通过getter方法获取数据并写入到excel
@@ -122,34 +118,34 @@ public class ExcelWriter {
      * @param methods
      * @param objs
      */
-    public static void exportByGetter2File(String filePath, String sheetName, String[] columnHeads, Method[] methods, List<?> objs) {
-        export2File(filePath, sheetName, columnHeads, exportByGetter(columnHeads, methods, objs));
-    }
+//    public static void exportByGetter2File(String filePath, String sheetName, String[] columnHeads, Method[] methods, List<?> objs) {
+//        export2File(filePath, sheetName, columnHeads, exportByGetter(columnHeads, methods, objs));
+//    }
 
-    private static List<List<Object>> exportByGetter(String[] columnHeads, Method[] methods, List<?> objs) {
-        if (columnHeads == null) {
-            columnHeads = new String[methods.length];
-            for (int i = 0; i < methods.length; i++) {
-                columnHeads[i] = ServiceTools.getFieldName(methods[i]);
-            }
-        }
-        List<List<Object>> dataList = new ArrayList<>();
-        objs.forEach(obj -> {
-                    ArrayList<Object> rowData = new ArrayList<>();
-                    for (int i = 0; i < methods.length; i++) {
-                        try {
-                            rowData.set(i, methods[i].invoke(obj));
-                        } catch (IllegalAccessException | InvocationTargetException e) {
-                            log.error("执行方法异常");
-                            throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.INVOKE_METHOD_FAIL);
-                        }
-                    }
-                    dataList.add(rowData);
-                }
-        );
-        return dataList;
-
-    }
+//    private static List<List<Object>> exportByGetter(String[] columnHeads, Method[] methods, List<?> objs) {
+//        if (columnHeads == null) {
+//            columnHeads = new String[methods.length];
+//            for (int i = 0; i < methods.length; i++) {
+//                columnHeads[i] = ServiceTools.getFieldName(methods[i]);
+//            }
+//        }
+//        List<List<Object>> dataList = new ArrayList<>();
+//        objs.forEach(obj -> {
+//                    ArrayList<Object> rowData = new ArrayList<>();
+//                    for (int i = 0; i < methods.length; i++) {
+//                        try {
+//                            rowData.set(i, methods[i].invoke(obj));
+//                        } catch (IllegalAccessException | InvocationTargetException e) {
+//                            log.error("执行方法异常");
+//                            throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.INVOKE_METHOD_FAIL);
+//                        }
+//                    }
+//                    dataList.add(rowData);
+//                }
+//        );
+//        return dataList;
+//
+//    }
 
 
     /**

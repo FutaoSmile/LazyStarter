@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>com.lazy.starter</groupId>
-            <artifactId>foundation</artifactId>
+            <artifactId>lazy-foundation</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>

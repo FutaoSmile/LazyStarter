@@ -1,8 +1,6 @@
 package com.lazy.foundation.foundation;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.lazy.foundation.utils.DateTools;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -15,6 +13,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 
+import static com.lazy.constant.Constant.SERIALIZER_FEATURES;
+
 /**
  * 自定义HttpMessageConverter
  *
@@ -23,19 +23,6 @@ import java.nio.charset.StandardCharsets;
  */
 //@Service
 public class FastJson2HttpMessageConverter extends AbstractHttpMessageConverter<Object> implements GenericHttpMessageConverter<Object> {
-    /**
-     * fastJson配置
-     */
-    public static final SerializerFeature[] SERIALIZER_FEATURES = new SerializerFeature[]{
-            SerializerFeature.PrettyFormat
-            , SerializerFeature.SkipTransientField
-            , SerializerFeature.WriteEnumUsingName
-            , SerializerFeature.WriteDateUseDateFormat
-            , SerializerFeature.WriteNullStringAsEmpty
-            , SerializerFeature.WriteNullListAsEmpty
-            , SerializerFeature.WriteMapNullValue
-            , SerializerFeature.DisableCircularReferenceDetect
-    };
 
     @Override
     protected boolean supports(Class<?> clazz) {
@@ -69,7 +56,7 @@ public class FastJson2HttpMessageConverter extends AbstractHttpMessageConverter<
 
     @Override
     public void write(Object o, Type type, MediaType contentType, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
-        JSON.DEFFAULT_DATE_FORMAT = DateTools.yyyyMMddHHmmss;
+        JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         outputMessage.getBody().write(JSON.toJSONString(o, SERIALIZER_FEATURES).getBytes(StandardCharsets.UTF_8));
     }
 }

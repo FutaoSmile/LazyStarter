@@ -1,6 +1,9 @@
 package com.lazy.foundation.model;
 
-import com.lazy.foundation.foundation.exception.LogicException;
+
+import com.lazy.constant.ErrorMessage;
+import com.lazy.rest.exception.LogicException;
+import com.lazy.validator.annotations.enums.IEnum;
 
 /**
  * 角色
@@ -8,7 +11,7 @@ import com.lazy.foundation.foundation.exception.LogicException;
  * @author futao
  * Created on 2018/9/19-14:41.
  */
-public enum UserRoleEnum implements IEnum {
+public enum UserRoleEnum implements IEnum<Integer> {
     /**
      * 普通登录用户
      */
@@ -26,10 +29,12 @@ public enum UserRoleEnum implements IEnum {
         this.description = description;
     }
 
-    public int getType() {
+    @Override
+    public Integer getType() {
         return type;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
@@ -49,8 +54,4 @@ public enum UserRoleEnum implements IEnum {
         throw LogicException.le(ErrorMessage.LogicErrorMessage.ROLE_NOT_EXIST);
     }
 
-    @Override
-    public String getStatus() {
-        return String.valueOf(this.type);
-    }
 }

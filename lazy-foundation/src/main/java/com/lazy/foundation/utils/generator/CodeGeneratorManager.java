@@ -1,7 +1,7 @@
 package com.lazy.foundation.utils.generator;
 
-import com.lazy.foundation.foundation.exception.ApplicationException;
-import com.lazy.foundation.utils.DateTools;
+import com.lazy.rest.exception.ApplicationException;
+import com.lazy.tools.DateTools;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

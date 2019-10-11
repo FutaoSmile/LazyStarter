@@ -1,6 +1,6 @@
 package com.lazy.mybatis.cache;
 
-import com.lazy.foundation.utils.SpringTools;
+import com.lazy.rest.utils.SpringTools;
 import org.apache.ibatis.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

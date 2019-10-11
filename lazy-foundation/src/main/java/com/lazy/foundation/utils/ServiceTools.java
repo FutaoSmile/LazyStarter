@@ -1,8 +1,9 @@
 package com.lazy.foundation.utils;
 
-import com.lazy.foundation.foundation.exception.LogicException;
+import com.lazy.constant.ErrorMessage;
 import com.lazy.foundation.model.BaseEntity;
-import com.lazy.foundation.model.ErrorMessage;
+import com.lazy.rest.exception.LogicException;
+import com.lazy.tools.DateTools;
 
 import java.lang.reflect.Method;
 import java.util.UUID;
@@ -67,7 +68,7 @@ public class ServiceTools {
      * @param <T>
      * @return
      */
-    public static <T extends BaseEntity> T setCreateAndLastModiftTimeNow(T t) {
+    public static <T extends BaseEntity> T setCreateAndLastModifyTimeNow(T t) {
         t.setCreateTime(DateTools.currentTimeStamp());
         t.setLastModifyTime(DateTools.currentTimeStamp());
         return t;
@@ -80,7 +81,7 @@ public class ServiceTools {
      * @param <T>
      * @return
      */
-    public static <T extends BaseEntity> T setLastModiftTimeNow(T t) {
+    public static <T extends BaseEntity> T setLastModifyTimeNow(T t) {
         t.setLastModifyTime(DateTools.currentTimeStamp());
         return t;
     }

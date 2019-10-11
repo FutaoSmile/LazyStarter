@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>foundation</artifactId>
+    <artifactId>lazy-foundation</artifactId>
     <description>基础组件</description>
 
     <properties>
@@ -22,6 +22,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.lazy.starter</groupId>
+            <artifactId>lazy-tools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lazy.starter</groupId>
+            <artifactId>lazy-rest</artifactId>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
@@ -29,7 +39,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
 
 
         <dependency>
@@ -56,6 +65,10 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lazy.starter</groupId>
+            <artifactId>lazy-validator</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,10 +1,10 @@
 package com.lazy.httpclient;
 
 import com.alibaba.fastjson.JSON;
-import com.lazy.foundation.foundation.exception.LogicException;
-import com.lazy.foundation.model.Constant;
-import com.lazy.foundation.model.ErrorMessage;
+import com.lazy.constant.Constant;
+import com.lazy.constant.ErrorMessage;
 import com.lazy.httpclient.enums.UserAgentEnum;
+import com.lazy.rest.exception.LogicException;
 import org.apache.http.*;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.auth.UsernamePasswordCredentials;

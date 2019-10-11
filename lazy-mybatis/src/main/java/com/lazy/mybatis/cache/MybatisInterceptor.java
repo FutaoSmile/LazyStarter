@@ -1,6 +1,6 @@
 package com.lazy.mybatis.cache;
 
-import com.lazy.foundation.utils.SpringTools;
+import com.lazy.rest.utils.SpringTools;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;

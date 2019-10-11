@@ -1,6 +1,6 @@
 package com.lazy.foundation.configuration;
 
-import com.lazy.foundation.foundation.exception.LogicException;
+import com.lazy.rest.exception.LogicException;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

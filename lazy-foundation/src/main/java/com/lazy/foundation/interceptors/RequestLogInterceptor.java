@@ -21,8 +21,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.lazy.foundation.utils.RequestUtils.getCookies;
-import static com.lazy.foundation.utils.RequestUtils.getSessionParameters;
+import static com.lazy.tools.RequestUtils.getCookies;
+import static com.lazy.tools.RequestUtils.getSessionParameters;
 
 /**
  * 请求controller记录日志，以及接口请求时间记录

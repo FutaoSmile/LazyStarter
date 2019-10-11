@@ -1,7 +1,7 @@
 package com.lazy.foundation.foundation.exception;
 
-import com.lazy.foundation.model.RestResult;
-import com.lazy.foundation.utils.I18nTools;
+import com.lazy.rest.rest.RestResult;
+import com.lazy.rest.utils.I18nTools;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +25,6 @@ public class NotFoundController implements ErrorController {
     @RequestMapping(path = "error", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Object error() {
         String message = I18nTools.getMessage("system.not.found");
-        return new RestResult<>(false, String.valueOf(HttpServletResponse.SC_NOT_FOUND), message, message);
+        return new RestResult<>(String.valueOf(HttpServletResponse.SC_NOT_FOUND), message, message);
     }
 }
