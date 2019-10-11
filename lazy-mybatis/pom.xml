@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mybatis</artifactId>
+    <artifactId>lazy-mybatis</artifactId>
     <description>mybatis相关组件</description>
 
     <properties>

@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>http-client</artifactId>
+    <artifactId>lazy-http-client</artifactId>
     <description>httpClient</description>
 
     <properties>

@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>learning</artifactId>
+    <artifactId>lazy-learning</artifactId>
     <description>学习</description>
 
     <properties>

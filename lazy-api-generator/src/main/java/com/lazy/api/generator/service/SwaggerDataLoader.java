@@ -8,13 +8,14 @@ import com.lazy.api.generator.model.ApiController;
 import com.lazy.api.generator.model.ApiInfo;
 import com.lazy.api.generator.model.ApiMethod;
 import com.lazy.api.generator.model.ApiParameter;
-import com.lazy.foundation.foundation.FastJson2HttpMessageConverter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.lazy.constant.Constant.SERIALIZER_FEATURES;
 
 /**
  * swagger数据加载
@@ -178,7 +179,7 @@ public class SwaggerDataLoader {
 //                properties.forEach((pro, desc) -> current.put(pro, ((JSONObject) desc).getString("type")));
 //            }
             if (properties != null) {
-                map.put(k, JSON.toJSONString(properties, FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
+                map.put(k, JSON.toJSONString(properties, SERIALIZER_FEATURES));
             }
         });
         definition = map;
