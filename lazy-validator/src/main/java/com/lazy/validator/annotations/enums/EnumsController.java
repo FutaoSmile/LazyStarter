@@ -2,6 +2,7 @@ package com.lazy.validator.annotations.enums;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.lazy.constant.RedisPrefixConstant;
 import com.lazy.rest.exception.LogicException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,7 +45,7 @@ public class EnumsController implements ApplicationListener<ContextRefreshedEven
 
     @GetMapping("/enums")
     public ArrayList<EnumDescription> enums() {
-        String enumsCache = redisTemplate.opsForValue().get("enums");
+        String enumsCache = redisTemplate.opsForValue().get(RedisPrefixConstant.VALIDATOR + "enums");
         if (StringUtils.isNotBlank(enumsCache)) {
             return JSON.parseObject(enumsCache, new TypeReference<ArrayList<EnumDescription>>() {
             });
@@ -91,7 +92,7 @@ public class EnumsController implements ApplicationListener<ContextRefreshedEven
                     nvs.add(new NV(enumConstant.getType(), enumConstant.getDescription()));
                 }
             }
-            redisTemplate.opsForValue().set("lazy:lazy-validator:enums", JSON.toJSONString(enumDescriptions));
+            redisTemplate.opsForValue().set(RedisPrefixConstant.VALIDATOR + "enums", JSON.toJSONString(enumDescriptions));
             log.info("{}枚举值成功加载到redis，请访问/enums查看,{}", StringUtils.repeat("=", 30), StringUtils.repeat("=", 30));
             return enumDescriptions;
         } else {

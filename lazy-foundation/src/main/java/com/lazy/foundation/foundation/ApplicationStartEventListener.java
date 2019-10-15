@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "lazyer.foundation")
+@ConfigurationProperties(prefix = "lazy.foundation")
 public class ApplicationStartEventListener implements ApplicationListener<ApplicationStartedEvent> {
     /**
      * 是否显示banner
@@ -61,10 +61,10 @@ public class ApplicationStartEventListener implements ApplicationListener<Applic
                     "//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
                     "//\n" +
                     "//               佛祖保佑         永无BUG\n" +
-                    "//              lazyer组件加载成功\n" +
+                    "//                    lazy组件加载成功\n" +
                     "//");
         } else {
-            log.info(StringUtils.repeat("=", 10) + "lazyer组件加载成功" + StringUtils.repeat("=", 10));
+            log.info(StringUtils.repeat("=", 10) + "lazy组件加载成功" + StringUtils.repeat("=", 10));
         }
     }
 

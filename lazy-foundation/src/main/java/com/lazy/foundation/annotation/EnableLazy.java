@@ -1,6 +1,6 @@
 package com.lazy.foundation.annotation;
 
-import com.lazy.foundation.annotation.impl.LazyerConfiguration;
+import com.lazy.foundation.annotation.impl.LazyConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -15,6 +15,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE})
 //TODO 直接@ComponentScan无效，必须通过@Import一个类的形式才行
-@Import({LazyerConfiguration.class})
+@Import({LazyConfiguration.class})
 public @interface EnableLazy {
 }

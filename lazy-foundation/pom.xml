@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.lazy.starter</groupId>
         <artifactId>lazy-framework</artifactId>
-        <version>${lazy.project.version}</version>
+        <version>1.2.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

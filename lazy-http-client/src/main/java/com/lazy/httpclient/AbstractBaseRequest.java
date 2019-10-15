@@ -194,7 +194,7 @@ public abstract class AbstractBaseRequest {
                     response = setConfig().execute(request);
                 } catch (IOException | URISyntaxException e) {
                     LOGGER.error("请求发生异常:" + e.getMessage(), e);
-                    throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, new String[]{e.getMessage()});
+                    throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, e.getMessage());
                 } finally {
                     requestLog(request, response);
                 }
@@ -210,7 +210,7 @@ public abstract class AbstractBaseRequest {
                     response = setConfig().execute(request);
                 } catch (IOException | URISyntaxException e) {
                     LOGGER.error("请求发生异常:" + e.getMessage(), e);
-                    throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, new String[]{e.getMessage()});
+                    throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL,e.getMessage());
                 } finally {
                     requestLog(request, response);
                 }
@@ -226,7 +226,7 @@ public abstract class AbstractBaseRequest {
                     response = setConfig().execute(request);
                 } catch (IOException | URISyntaxException e) {
                     LOGGER.error("请求发生异常:" + e.getMessage(), e);
-                    throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, new String[]{e.getMessage()});
+                    throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, e.getMessage());
                 } finally {
                     requestLog(request, response);
                 }
@@ -239,7 +239,7 @@ public abstract class AbstractBaseRequest {
                     response = setConfig().execute(request);
                 } catch (IOException | URISyntaxException e) {
                     LOGGER.error("请求发生异常:" + e.getMessage(), e);
-                    throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, new String[]{e.getMessage()});
+                    throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, e.getMessage());
                 } finally {
                     requestLog(request, response);
                     try {
@@ -248,7 +248,7 @@ public abstract class AbstractBaseRequest {
                         }
                     } catch (IOException e) {
                         LOGGER.error("关闭response失败:" + e.getMessage(), e);
-                        throw LogicException.le(ErrorMessage.LogicErrorMessage.CLOSE_RESPONSE_FAIL, new String[]{e.getMessage()});
+                        throw LogicException.le(ErrorMessage.LogicErrorMessage.CLOSE_RESPONSE_FAIL, e.getMessage());
                     }
                 }
                 break;
@@ -259,7 +259,7 @@ public abstract class AbstractBaseRequest {
         //判断请求是否成功200
         if (response != null && response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
             LOGGER.error("请求失败:HttpStatus=" + response.getStatusLine().getStatusCode());
-            throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, new String[]{String.valueOf(response.getStatusLine().getStatusCode())});
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, String.valueOf(response.getStatusLine().getStatusCode()));
         }
         //获取结果
         // TODO 返回HttpServletResponse
@@ -327,7 +327,7 @@ public abstract class AbstractBaseRequest {
                         .append("响应结果:").append(result).append("\n");
             } catch (IOException e) {
                 LOGGER.error(e.getMessage(), e);
-                throw LogicException.le(ErrorMessage.LogicErrorMessage.GET_RESPONSE_FAIL, new String[]{e.getMessage()});
+                throw LogicException.le(ErrorMessage.LogicErrorMessage.GET_RESPONSE_FAIL, e.getMessage());
             }
         }
         LOGGER.info(sb.toString());
@@ -349,7 +349,7 @@ public abstract class AbstractBaseRequest {
                 request.addHeader(new BasicScheme().authenticate(credentials, request, null));
             } catch (AuthenticationException e) {
                 LOGGER.error("request authentication fail: " + e.getMessage(), e);
-                throw LogicException.le(ErrorMessage.LogicErrorMessage.ADD_AUTH_HEAD_FAIL, new String[]{e.getMessage()});
+                throw LogicException.le(ErrorMessage.LogicErrorMessage.ADD_AUTH_HEAD_FAIL, e.getMessage());
             }
         }
     }
