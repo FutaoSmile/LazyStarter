@@ -88,7 +88,7 @@ public class ApplicationStartEventListener implements ApplicationListener<Applic
     /**
      * 线程前缀
      */
-    private String threadPrefix = "lazyer-ty-";
+    private String threadPrefix = "lazy-tp-";
 
     @Primary
     @Bean(destroyMethod = "shutdown")

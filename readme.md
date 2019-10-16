@@ -9,19 +9,19 @@
 
   ```xml
       <properties>
-          <project.lazyer.version>1.1.2</project.lazyer.version>
+          <project.lazy.version>1.1.2</project.lazy.version>
       </properties>
   
       <dependency>
-          <groupId>com.lazyer.starter</groupId>
+          <groupId>com.lazy.starter</groupId>
           <artifactId>http-client</artifactId>
-          <version>${project.lazyer.version}</version>
+          <version>${project.lazy.version}</version>
       </dependency>
   
       <dependency>
-           <groupId>com.lazyer.starter</groupId>
+           <groupId>com.lazy.starter</groupId>
           <artifactId>api-generator</artifactId>
-          <version>${project.lazyer.version}</version>
+          <version>${project.lazy.version}</version>
       </dependency>
   ```
 
@@ -30,7 +30,7 @@
   ```gradle
   buildscript {
       ext {
-      	lazyerVersion = '1.1.2'
+      	lazyVersion = '1.1.2'
       }
   
   repositories {
@@ -43,26 +43,26 @@
   //依赖
   dependencies {
   //通用模块组件依赖
-      compile "com.lazyer.starter:http-client:${lazyerVersion}"
-      compile "com.lazyer.starter:foundation:${lazyerVersion}"
-      compile "com.lazyer.starter:api-generator:${lazyerVersion}"
+      compile "com.lazy.starter:http-client:${lazyVersion}"
+      compile "com.lazy.starter:foundation:${lazyVersion}"
+      compile "com.lazy.starter:api-generator:${lazyVersion}"
   }
   
   ```
   
-### # [api-generator](https://github.com/FutaoSmile/LazyerStarter/tree/master/api-generator)
+### # [api-generator](https://github.com/FutaoSmile/lazyStarter/tree/master/api-generator)
 
 > 根据swagger-api生成markdown文档。markdown可再导出为pdf，html等
 
-### # [http-client](https://github.com/FutaoSmile/LazyerStarter/tree/master/http-client)
+### # [http-client](https://github.com/FutaoSmile/lazyStarter/tree/master/http-client)
 
 > http工具包
 
-### # [mybatis](https://github.com/FutaoSmile/LazyerStarter/tree/master/mybatis)
+### # [mybatis](https://github.com/FutaoSmile/lazyStarter/tree/master/mybatis)
 
 > mybatis二级缓存
 
-### # [tools](https://github.com/FutaoSmile/LazyerStarter/tree/master/tools) 
+### # [tools](https://github.com/FutaoSmile/lazyStarter/tree/master/tools) 
 
 > 工具包
 

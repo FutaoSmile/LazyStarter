@@ -12,9 +12,9 @@
     * 引入依赖
     ```xml
       <dependency>
-          <groupId>com.lazyer.starter</groupId>
+          <groupId>com.lazy.starter</groupId>
           <artifactId>api-generator</artifactId>
-          <version>${project.lazyer.version}</version>
+          <version>${project.lazy.version}</version>
       </dependency>    
     ```
     * 使用demo

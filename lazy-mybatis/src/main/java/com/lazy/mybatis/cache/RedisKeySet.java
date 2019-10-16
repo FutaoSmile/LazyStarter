@@ -5,7 +5,7 @@ package com.lazy.mybatis.cache;
  * Created on 2019-05-17.
  */
 public class RedisKeySet {
-    private static final String PREFIX = "lazyer:mybatis:second-level-cache";
+    private static final String PREFIX = "lazy:mybatis:second-level-cache";
 
     /**
      * mybatis的查询二级缓存key

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "lazyer.mybatis")
+@ConfigurationProperties(prefix = "lazy.mybatis")
 @Component
 public class MybatisConst {
     /**
