@@ -1,5 +1,7 @@
 package com.lazy.httpclient;
 
+import com.lazy.httpclient.model.RequestResult;
+
 /**
  * GET请求
  *
@@ -18,7 +20,7 @@ public class GetRequest extends AbstractBaseRequest {
      * @return 请求结果
      */
     @Override
-    public String send() {
+    public RequestResult send() {
         return this.sendRequest(AbstractBaseRequest.RequestMethod.GET, url);
     }
 

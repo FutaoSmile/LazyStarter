@@ -1,5 +1,7 @@
 package com.lazy.httpclient;
 
+import com.lazy.httpclient.model.RequestResult;
+
 /**
  * POST请求
  *
@@ -14,9 +16,10 @@ public class PostRequest extends AbstractBaseRequest {
 
     /**
      * 发起请求
+     * @return
      */
     @Override
-    public String send() {
+    public RequestResult send() {
         return this.sendRequest(RequestMethod.POST, url);
     }
 

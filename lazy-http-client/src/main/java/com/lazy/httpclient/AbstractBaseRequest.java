@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lazy.constant.Constant;
 import com.lazy.constant.ErrorMessage;
 import com.lazy.httpclient.enums.UserAgentEnum;
+import com.lazy.httpclient.model.RequestResult;
 import com.lazy.rest.exception.LogicException;
 import org.apache.http.*;
 import org.apache.http.auth.AuthenticationException;
@@ -166,7 +167,7 @@ public abstract class AbstractBaseRequest {
      * @param url    请求地址
      * @return 响应
      */
-    String sendRequest(RequestMethod method, String url) {
+    RequestResult sendRequest(RequestMethod method, String url) {
 
         //请求地址
         URIBuilder uriBuilder;
@@ -210,7 +211,7 @@ public abstract class AbstractBaseRequest {
                     response = setConfig().execute(request);
                 } catch (IOException | URISyntaxException e) {
                     LOGGER.error("请求发生异常:" + e.getMessage(), e);
-                    throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL,e.getMessage());
+                    throw LogicException.le(ErrorMessage.LogicErrorMessage.REQUEST_FAIL, e.getMessage());
                 } finally {
                     requestLog(request, response);
                 }
@@ -263,7 +264,7 @@ public abstract class AbstractBaseRequest {
         }
         //获取结果
         // TODO 返回HttpServletResponse
-        return result;
+        return new RequestResult(result, response);
     }
 
     /**
@@ -302,7 +303,7 @@ public abstract class AbstractBaseRequest {
      *
      * @return 请求结果
      */
-    public abstract String send();
+    public abstract RequestResult send();
 
     /**
      * 请求日志记录

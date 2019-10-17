@@ -1,5 +1,7 @@
 package com.lazy.httpclient;
 
+import com.lazy.httpclient.model.RequestResult;
+
 /**
  * DELETE请求
  *
@@ -18,7 +20,7 @@ public class DeleteRequest extends AbstractBaseRequest {
      * @return 请求结果
      */
     @Override
-    public String send() {
+    public RequestResult send() {
         return this.sendRequest(RequestMethod.DELETE, url);
     }
 
