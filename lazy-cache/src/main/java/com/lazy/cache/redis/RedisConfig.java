@@ -1,6 +1,7 @@
 package com.lazy.cache.redis;
 
 import com.alibaba.fastjson.parser.ParserConfig;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -35,4 +36,23 @@ public class RedisConfig {
         redisTemplate.setHashValueSerializer(fastJsonRedisSerializer);
         return redisTemplate;
     }
+
+    @Primary
+    @Bean
+    public KeyGenerator keyGenerator() {
+        return (target, method, params) -> {
+            StringBuilder sb = new StringBuilder();
+            sb
+                    .append(target.getClass().getSimpleName())
+                    .append(":")
+                    .append(method.getName());
+            for (Object param : params) {
+                sb
+                        .append(":")
+                        .append(param);
+            }
+            return sb.toString();
+        };
+    }
+
 }
