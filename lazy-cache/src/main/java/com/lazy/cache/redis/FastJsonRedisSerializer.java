@@ -8,9 +8,6 @@ import org.springframework.data.redis.serializer.SerializationException;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 自定义Redis序列化,对于redisTemplate.opsForValue.set()有效，对注解@Cache无效，因为@Cache注解使用的是RedisTemplate<Object.Object>，
- * --可以自定义RedisCacheManager，并将redisTemplate设置成自定义的序列化工具，然后再@Cache()中使用这个自定义的RedisCacheManager
- *
  * @author futao
  * Created on 2019-03-22.
  */
@@ -21,7 +18,7 @@ public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
      */
     private Class<T> clazz = null;
 
-    private static final SerializerFeature[] SERIALIZER_FEATURES = new SerializerFeature[]{
+    protected static final SerializerFeature[] SERIALIZER_FEATURES = new SerializerFeature[]{
             SerializerFeature.PrettyFormat
             , SerializerFeature.SkipTransientField
 //            , SerializerFeature.WriteEnumUsingName

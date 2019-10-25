@@ -1,24 +1,57 @@
 package com.lazy.cache.redis;
 
 import com.alibaba.fastjson.parser.ParserConfig;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
+import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.annotation.Order;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  * @author futao
  * Created on 2019/10/24.
  */
 @Configuration
+@Order
+@AutoConfigureAfter({CacheAutoConfiguration.class})
+@Import({CacheAutoConfiguration.class})
 public class RedisConfig {
+
+    private final CacheProperties cacheProperties;
+
+
+    private final CacheManagerCustomizers customizerInvoker;
+
+    private final RedisCacheConfiguration redisCacheConfiguration;
+
+
+    public RedisConfig(CacheProperties cacheProperties,
+                       CacheManagerCustomizers customizerInvoker,
+                       ObjectProvider<RedisCacheConfiguration> redisCacheConfiguration) {
+        this.cacheProperties = cacheProperties;
+        this.customizerInvoker = customizerInvoker;
+        this.redisCacheConfiguration = redisCacheConfiguration.getIfAvailable();
+    }
+
     /**
      * 自定义序列化
      * 这里的FastJsonRedisSerializer引用的自己定义的
-     * 不自定义的话redisTemplate会乱码
      */
     @Primary
     @Bean
@@ -54,5 +87,53 @@ public class RedisConfig {
             return sb.toString();
         };
     }
+
+    @Primary
+    @Bean
+    public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory,
+                                          ResourceLoader resourceLoader) {
+        RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager
+                .builder(redisConnectionFactory)
+                .cacheDefaults(determineConfiguration(resourceLoader.getClassLoader()));
+        List<String> cacheNames = this.cacheProperties.getCacheNames();
+        if (!cacheNames.isEmpty()) {
+            builder.initialCacheNames(new LinkedHashSet<>(cacheNames));
+        }
+        return this.customizerInvoker.customize(builder.build());
+    }
+
+
+    /**
+     * 读取redisCache配置
+     *
+     * @param classLoader
+     * @return
+     */
+    private RedisCacheConfiguration determineConfiguration(
+            ClassLoader classLoader) {
+        if (this.redisCacheConfiguration != null) {
+            return this.redisCacheConfiguration;
+        }
+        CacheProperties.Redis redisProperties = this.cacheProperties.getRedis();
+        RedisCacheConfiguration config = RedisCacheConfiguration
+                .defaultCacheConfig();
+        //指定采用的序列化工具
+        config = config.serializeValuesWith(RedisSerializationContext.SerializationPair
+                .fromSerializer(new FastJsonRedisSerializer4CacheManager<>()));
+        if (redisProperties.getTimeToLive() != null) {
+            config = config.entryTtl(redisProperties.getTimeToLive());
+        }
+        if (redisProperties.getKeyPrefix() != null) {
+            config = config.prefixKeysWith(redisProperties.getKeyPrefix());
+        }
+        if (!redisProperties.isCacheNullValues()) {
+            config = config.disableCachingNullValues();
+        }
+        if (!redisProperties.isUseKeyPrefix()) {
+            config = config.disableKeyPrefix();
+        }
+        return config;
+    }
+
 
 }
