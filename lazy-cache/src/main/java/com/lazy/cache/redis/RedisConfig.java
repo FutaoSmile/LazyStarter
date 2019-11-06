@@ -24,6 +24,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
+ * Redis配置
+ *
  * @author futao
  * Created on 2019/10/24.
  */
@@ -34,7 +36,6 @@ import java.util.List;
 public class RedisConfig {
 
     private final CacheProperties cacheProperties;
-
 
     private final CacheManagerCustomizers customizerInvoker;
 
@@ -70,6 +71,11 @@ public class RedisConfig {
         return redisTemplate;
     }
 
+    /**
+     * key的生成规则
+     *
+     * @return
+     */
     @Primary
     @Bean
     public KeyGenerator keyGenerator() {
@@ -88,6 +94,13 @@ public class RedisConfig {
         };
     }
 
+    /**
+     * Redis缓存管理器
+     *
+     * @param redisConnectionFactory
+     * @param resourceLoader
+     * @return
+     */
     @Primary
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory,
@@ -104,7 +117,7 @@ public class RedisConfig {
 
 
     /**
-     * 读取redisCache配置
+     * 读取redisCache配置与设置序列化反序列化
      *
      * @param classLoader
      * @return

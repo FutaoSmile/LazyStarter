@@ -4,6 +4,8 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
 /**
+ * 自定义的使用FastJson来序列化与反序列化-用于RedisCacheManager缓存管理器
+ *
  * @author futao
  * Created on 2019/10/24.
  */

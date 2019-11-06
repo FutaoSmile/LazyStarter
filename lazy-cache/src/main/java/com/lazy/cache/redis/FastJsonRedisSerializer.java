@@ -8,6 +8,8 @@ import org.springframework.data.redis.serializer.SerializationException;
 import java.nio.charset.StandardCharsets;
 
 /**
+ * 自定义的使用FastJson来序列化与反序列化-用于RedisTemplate
+ *
  * @author futao
  * Created on 2019-03-22.
  */
@@ -18,7 +20,7 @@ public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
      */
     private Class<T> clazz = null;
 
-    protected static final SerializerFeature[] SERIALIZER_FEATURES = new SerializerFeature[]{
+    private static final SerializerFeature[] SERIALIZER_FEATURES = new SerializerFeature[]{
             SerializerFeature.PrettyFormat
             , SerializerFeature.SkipTransientField
 //            , SerializerFeature.WriteEnumUsingName
