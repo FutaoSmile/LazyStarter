@@ -1,2 +1,25 @@
 server:
   port: 8080
+
+spring:
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 1185172056@qq.com
+    password: 123
+    properties:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
+          required: true
+  boot:
+    admin:
+      notify:
+        mail:
+          to: 1185172056@qq.com
+
+  security:
+    user:
+      name: futao
+      password: tf
