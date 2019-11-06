@@ -31,3 +31,4 @@
   
 * `FastJsonRedisSerializer4CacheManager.class`实现了RedisCacheManager-Redis缓存管理器的使用FastJson作为自定义的序列化/反序列化工具，杜绝的乱码的产生。
     通过RedisConfig.determineConfiguration()方法，将JDK的序列化方式改为FastJsonRedisSerializer4CacheManager
+    
