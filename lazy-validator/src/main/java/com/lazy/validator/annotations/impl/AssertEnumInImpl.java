@@ -1,7 +1,6 @@
 package com.lazy.validator.annotations.impl;
 
 import com.lazy.validator.annotations.AssertEnumIn;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl;
 
 import javax.validation.ConstraintValidator;
@@ -14,17 +13,24 @@ import java.util.Objects;
  * @author futao
  * Created on 2019/9/23.
  */
-@Slf4j
 public class AssertEnumInImpl implements ConstraintValidator<AssertEnumIn, Object> {
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         AssertEnumIn assertEnumIn = (AssertEnumIn) ((ConstraintValidatorContextImpl) context).getConstraintDescriptor().getAnnotation();
-        if (assertEnumIn.nullable() && value == null) {
+        if (value == null && assertEnumIn.nullable()) {
             return true;
+        } else if (value == null) {
+            return false;
         }
         int[] enumValues = assertEnumIn.value();
         for (int enumValue : enumValues) {
+            if (value instanceof String && value.equals(String.valueOf(enumValue))) {
+                return true;
+            }
+            if (value instanceof Integer && (int) value == enumValue) {
+                return true;
+            }
             if (Objects.equals(value, enumValue)) {
                 return true;
             }
