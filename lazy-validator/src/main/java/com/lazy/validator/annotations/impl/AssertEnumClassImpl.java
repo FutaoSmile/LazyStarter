@@ -50,13 +50,21 @@ public class AssertEnumClassImpl implements ConstraintValidator<AssertEnumClass,
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         AssertEnumClass assertEnumClass = (AssertEnumClass) ((ConstraintValidatorContextImpl) context).getConstraintDescriptor().getAnnotation();
-        if (assertEnumClass.nullable() && value == null) {
+        if (value == null && assertEnumClass.nullable()) {
             return true;
+        } else if (value == null) {
+            return false;
         }
         String name = assertEnumClass.value().getName();
         Integer[] enumValues = CACHE.get(name);
         for (Integer enumValue : enumValues) {
-            if (Objects.equals(enumValue, value)) {
+            if (value instanceof String && value.equals(String.valueOf(enumValue))) {
+                return true;
+            }
+            if (value instanceof Integer && (int) value == enumValue) {
+                return true;
+            }
+            if (Objects.equals(value, enumValue)) {
                 return true;
             }
         }
