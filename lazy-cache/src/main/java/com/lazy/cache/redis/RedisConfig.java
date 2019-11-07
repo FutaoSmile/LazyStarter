@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +34,7 @@ import java.util.List;
 @Order
 @AutoConfigureAfter({CacheAutoConfiguration.class})
 @Import({CacheAutoConfiguration.class})
+@ConditionalOnClass({FastJsonRedisSerializer.class, FastJsonRedisSerializer4CacheManager.class})
 public class RedisConfig {
 
     private final CacheProperties cacheProperties;
