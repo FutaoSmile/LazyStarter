@@ -38,7 +38,7 @@ public class ExcelWriter {
         long startTime = System.currentTimeMillis();
         SXSSFWorkbook workbook = genExcel(sheetName, columnHeads, data);
         try {
-            workbook.write(FileUtils.openOutputStream(new File(filePath + ".xlsx")));
+            workbook.write(FileUtils.openOutputStream(new File(filePath + ".xls")));
         } catch (IOException e) {
             log.error("导出excel失败", e);
             throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.EXPORT_EXCEL_FAIL);
@@ -63,7 +63,7 @@ public class ExcelWriter {
         response.setContentType("application/vnd.ms-excel");
 
         try {
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName + ".xlsx", Constant.UTF8_ENCODE));
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName + ".xls", Constant.UTF8_ENCODE));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
