@@ -3,8 +3,10 @@ package com.lazy.rest.rest;
 import com.lazy.rest.exception.ApplicationException;
 import com.lazy.rest.exception.LogicException;
 import com.lazy.rest.utils.I18nTools;
+import com.lazy.rest.utils.SpringTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.transaction.TransactionTimedOutException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -22,11 +24,10 @@ import javax.validation.ConstraintViolationException;
  *
  * @author futao
  * Created on 2018/11/6.
- * //@ControllerAdvice(basePackages = "com.futao.springbootdemo.controller")
  */
 @RestControllerAdvice
-public class ExceptionWrapper {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionWrapper.class);
+public class GlobalExceptionWrapper {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionWrapper.class);
 
     /**
      * 全局异常处理
@@ -83,6 +84,10 @@ public class ExceptionWrapper {
         } else {
             result.setCode(RestResult.NOT_RE_WRITE_ERROR_MESSAGE);
             result.setErrorMessage(message);
+        }
+        Environment environment = SpringTools.getBean(Environment.class);
+        if (environment.getProperty("debug", Boolean.class, false)) {
+            printExceptionLog(e);
         }
         return result;
     }
