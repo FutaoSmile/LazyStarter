@@ -43,7 +43,7 @@ public class ApiGenerator {
             }
             File file = new File(fileName);
             GetRequest getRequest = new GetRequest(swaggerApiUrl);
-            String result = getRequest.send();
+            String result = getRequest.send().getResult();
             ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
             ApiGenerator.genInfo(apiInfo, file);
             ApiGenerator.genPaths(apiInfo, file);
@@ -61,7 +61,7 @@ public class ApiGenerator {
             File file = new File(fileName);
             GetRequest getRequest = new GetRequest(swaggerApiUrl);
             getRequest.addCredentials(userName, password);
-            String result = getRequest.send();
+            String result = getRequest.send().getResult();
             ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
             ApiGenerator.genInfo(apiInfo, file);
             ApiGenerator.genPaths(apiInfo, file);
@@ -86,7 +86,7 @@ public class ApiGenerator {
             File file = new File(fileName);
             for (String s : swaggerApiUrl) {
                 GetRequest getRequest = new GetRequest(s);
-                String result = getRequest.send();
+                String result = getRequest.send().getResult();
                 ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
                 ApiGenerator.genInfo(apiInfo, file);
                 ApiGenerator.genPaths(apiInfo, file);
@@ -113,7 +113,7 @@ public class ApiGenerator {
             for (String s : swaggerApiUrl) {
                 GetRequest getRequest = new GetRequest(s);
                 getRequest.addCredentials(userName, password);
-                String result = getRequest.send();
+                String result = getRequest.send().getResult();
                 ApiInfo apiInfo = SwaggerDataLoader.loadData(result);
                 ApiGenerator.genInfo(apiInfo, file);
                 ApiGenerator.genPaths(apiInfo, file);

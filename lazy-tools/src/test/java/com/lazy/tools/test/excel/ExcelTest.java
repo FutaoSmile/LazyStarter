@@ -1,6 +1,5 @@
 package com.lazy.tools.test.excel;
 
-import com.lazy.tools.excel.ExcelWriter;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -26,6 +25,6 @@ public class ExcelTest {
         data.add(rowData);//添加一行数据
         data.add(rowData);//添加一行数据
         data.add(rowData);//添加一行数据
-        ExcelWriter.export2File("./excelTest", "sheet1", new String[]{"用户名", "年龄", "地址", "手机号"}, data);
+//        ExcelWriter.export2File("./excelTest", "sheet1", new String[]{"用户名", "年龄", "地址", "手机号"}, data);
     }
 }

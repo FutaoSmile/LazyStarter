@@ -6,6 +6,8 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,9 +19,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RestController
 public class NotFoundController implements ErrorController {
+
     @Override
     public String getErrorPath() {
-        return "/error";
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getRequestURI();
     }
 
     @RequestMapping(path = "error", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

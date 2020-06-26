@@ -107,7 +107,7 @@ public class Test{
 ```xml
         <artifactId>lazy-cache</artifactId>
         <groupId>com.lazy.starter</groupId>
-        <version>1.2.3</version>
+        <version>1.2.5</version>
 ```
 * 实现了与SpringStarter一样的自动装配功能，只需要引入依赖即可使用。
 
@@ -132,3 +132,6 @@ public class Test{
 * `FastJsonRedisSerializer4CacheManager.class`实现了RedisCacheManager-Redis缓存管理器的使用FastJson作为自定义的序列化/反序列化工具，杜绝的乱码的产生。
     通过RedisConfig.determineConfiguration()方法，将JDK的序列化方式改为FastJsonRedisSerializer4CacheManager
     
+    
+### # TODO
+* 如果对象继承自IdTime类，则自动给对象设置id，createTime和modifyTime

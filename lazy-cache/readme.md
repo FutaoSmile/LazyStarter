@@ -7,7 +7,7 @@
 ```xml
         <artifactId>lazy-cache</artifactId>
         <groupId>com.lazy.starter</groupId>
-        <version>1.2.3</version>
+        <version>1.2.5</version>
 ```
 * 实现了与SpringStarter一样的自动装配功能，只需要引入依赖即可使用。
 
