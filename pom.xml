@@ -45,7 +45,7 @@
         <!-- 项目版本-->
         <lazy.project.version>1.2.5</lazy.project.version>
         <!-- 跟随parent.version变化-->
-        <lazy.springBoot.version>2.1.3.RELEASE</lazy.springBoot.version>
+        <lazy.springBoot.version>2.5.12</lazy.springBoot.version>
         <lazy.spring.version>5.1.6.RELEASE</lazy.spring.version>
         <lazy.poi.version>3.17</lazy.poi.version>
         <lazy.mybatis.version>2.0.1</lazy.mybatis.version>
