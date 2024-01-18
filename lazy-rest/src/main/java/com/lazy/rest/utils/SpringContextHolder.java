@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class SpringTools implements ApplicationContextAware {
+public class SpringContextHolder implements ApplicationContextAware {
 
     private static ApplicationContext context = null;
 

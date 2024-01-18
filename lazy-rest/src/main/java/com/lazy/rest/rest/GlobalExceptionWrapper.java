@@ -3,7 +3,7 @@ package com.lazy.rest.rest;
 import com.lazy.rest.exception.ApplicationException;
 import com.lazy.rest.exception.LogicException;
 import com.lazy.rest.utils.I18nTools;
-import com.lazy.rest.utils.SpringTools;
+import com.lazy.rest.utils.SpringContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -85,7 +85,7 @@ public class GlobalExceptionWrapper {
             result.setCode(RestResult.NOT_RE_WRITE_ERROR_MESSAGE);
             result.setErrorMessage(message);
         }
-        Environment environment = SpringTools.getBean(Environment.class);
+        Environment environment = SpringContextHolder.getBean(Environment.class);
         if (environment.getProperty("debug", Boolean.class, false)) {
             printExceptionLog(e);
         }

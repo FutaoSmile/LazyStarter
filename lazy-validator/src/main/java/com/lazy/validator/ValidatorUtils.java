@@ -1,7 +1,7 @@
 package com.lazy.validator;
 
 import com.lazy.rest.exception.LogicException;
-import com.lazy.rest.utils.SpringTools;
+import com.lazy.rest.utils.SpringContextHolder;
 import org.springframework.validation.DirectFieldBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.SmartValidator;
@@ -22,7 +22,7 @@ public class ValidatorUtils {
      */
     public static void checkObj(Object obj) {
         Errors errors = new DirectFieldBindingResult(obj, "obj");
-        SpringTools.getBean(SmartValidator.class).validate(obj, errors);
+        SpringContextHolder.getBean(SmartValidator.class).validate(obj, errors);
         if (errors.getAllErrors().size() > 0) {
             throw LogicException.le(errors.getAllErrors().get(0).getDefaultMessage());
         }

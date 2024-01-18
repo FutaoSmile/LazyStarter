@@ -1,6 +1,6 @@
 package com.lazy.mybatis.cache;
 
-import com.lazy.rest.utils.SpringTools;
+import com.lazy.rest.utils.SpringContextHolder;
 import org.apache.ibatis.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +64,7 @@ public class MybatisCacheRedis implements Cache {
             String redisKey = RedisKeySet.mybatisSecondCacheMapperKey(id + ":" + key);
             //不要设置过期时间
             redisTemplate.opsForList().rightPush(RedisKeySet.mybatisSecondCacheListKey(id), redisKey);
-            redisTemplate.opsForValue().set(redisKey, value, SpringTools.getBean(MybatisConst.class).mybatisRedisCacheExpireTimeInSecond, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(redisKey, value, SpringContextHolder.getBean(MybatisConst.class).mybatisRedisCacheExpireTimeInSecond, TimeUnit.SECONDS);
             logger.debug("\n<<< 结果插入redis缓存\n【key】{}\n【值】:{}", redisKey, value);
         }
     }
@@ -134,7 +134,7 @@ public class MybatisCacheRedis implements Cache {
 
     private RedisTemplate getRedisTemplate() {
         if (redisTemplate == null) {
-            redisTemplate = SpringTools.getBean("redisTemplate");
+            redisTemplate = SpringContextHolder.getBean("redisTemplate");
         }
         return redisTemplate;
     }

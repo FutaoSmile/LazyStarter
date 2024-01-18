@@ -1,6 +1,6 @@
 package com.lazy.validator;
 
-import com.lazy.rest.utils.SpringTools;
+import com.lazy.rest.utils.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,8 +35,8 @@ public class NormalTest {
 
     @Test
     public void test1() {
-        SmartValidator validator = SpringTools.getBean(SmartValidator.class);
-        ExecutableValidator bean = SpringTools.getBean(ExecutableValidator.class);
+        SmartValidator validator = SpringContextHolder.getBean(SmartValidator.class);
+        ExecutableValidator bean = SpringContextHolder.getBean(ExecutableValidator.class);
         System.out.println(bean);
 
     }

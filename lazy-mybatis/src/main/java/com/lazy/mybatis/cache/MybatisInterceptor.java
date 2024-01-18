@@ -1,6 +1,6 @@
 package com.lazy.mybatis.cache;
 
-import com.lazy.rest.utils.SpringTools;
+import com.lazy.rest.utils.SpringContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -49,7 +49,7 @@ public class MybatisInterceptor implements Interceptor {
         long endTime = System.currentTimeMillis();
         //sql执行时间
         long sqlTime = endTime - startTime;
-        if (SpringTools.getBean(MybatisConst.class).showSql) {
+        if (SpringContextHolder.getBean(MybatisConst.class).showSql) {
             try {
                 Object[] args = invocation.getArgs();
                 MappedStatement ms = (MappedStatement) args[0];
@@ -62,8 +62,8 @@ public class MybatisInterceptor implements Interceptor {
                 // 记录日志
                 logSql(id, configuration, boundSql, sqlTime + "");
                 //开启新线程记录慢sql
-                if (sqlTime > SpringTools.getBean(MybatisConst.class).slowSqlMillis) {
-                    SpringTools.getBean(java.util.concurrent.Executor.class).execute(() -> LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime));
+                if (sqlTime > SpringContextHolder.getBean(MybatisConst.class).slowSqlMillis) {
+                    SpringContextHolder.getBean(java.util.concurrent.Executor.class).execute(() -> LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime));
                 }
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);

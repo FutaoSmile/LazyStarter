@@ -26,7 +26,7 @@ public class I18nTools {
      */
     public static String getMessage(String code) {
         try {
-            return SpringTools.getContext().getMessage(code, null, LocaleContextHolder.getLocale());
+            return SpringContextHolder.getContext().getMessage(code, null, LocaleContextHolder.getLocale());
         } catch (NoSuchMessageException e) {
             LOGGER.error("获取国际化资源{}失败" + e.getMessage(), code, e);
             throw LogicException.le(I18N_RESOURCE_NOT_FOUND, code);
